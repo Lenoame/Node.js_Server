@@ -100,3 +100,62 @@ Node.js의 강점
 서버 스케일링 혹은 멀티쓰레딩을 하면 일반서버도 처리 능력 향상
 
 이것은 Node.js도 가능하다
+
+
+## Node.js와 Express 라이브러리 설치하기
+
+1. Setting up
+- Node.js 설치 (10버전 이상)
+- node -v 입력하면 설치된 버전이 나옴 (설치확인 끝!)
+- node 입력하면 node 실행 가능 → 자바스크립트 사용가능
+- VS code 에디터 설치
+
+Node.js 실행해보려면 검색 - 명령프롬프트 or Powershell, 맥은 터미널 검색
+
+작업폴더를 오픈하고 코딩시작 (File - Open Folder)
+
+생코딩이 아니라 express 라는 라이브러리를 써서 서버를 만들거임
+
+라이브러리 : 코드를 쉽게 짜기 위해 빌려쓰는 코드 모음집
+
+express 라이브러리 설치하기
+
+1. 터미널 열기 (New Terminal)
+2. npm init 이벽해서 셋팅하기 → npm은 라이브러리 설치를 도와주는 도구
+3. 어떤 라이브러리 설치했는지 기록하면 좋을듯? package.json에 기록함  entry point: (index.js) server.js 엔트리 포인트만 내가 원하는 파일명으로 설정
+4. 터미널에 npm install express 입력하기
+5. package.json에 기록이 됩니다 (설치할 때마다)
+
+node_modules → 라이브러리에 필요한 자료들 담는 공간
+
+npm install설치시 '권한이 없어요' 에러가 날 수 있음 → 대부분은 구글검색 해결 가능 → yarn 검색 후 설치 (명령어 yarn add express)
+
+## 두근두근 내 첫 서버에서 GET 요청을요청리해보자
+
+1. Basic GET request
+
+터미널 오픈시에도 폴더명 잘 뜨는지 확인
+
+서버를 띄우기 위한 기본 셋팅 (express 라이브러리)
+
+listen(서버띄울 포트번호, 띄운 후 실행할 코드)
+
+8080 port에 서버 띄워주세요
+
+Port = 컴퓨터에는 외부와 통신하기 위한 구멍이 있음. #8080포트로 들어오는 사람에게 이 서버를 보여주세요~
+
+서버 켜는 법 node server.js
+서버 끄는 법 ctrl + c
+키보드 위 방향키 누르면 저번에 쳤던 명령어를 복사할 수 있음
+
+localhost:8080 → 8080포트로 들어가는 법
+
+요청을 처리하는 기계 제작하기 (서버)
+
+/beauty/home으로 방문하면 뷰티 상품들을 보여줌 → GET요청
+
+/pet/home으로 방문하면 펫 상품을 보여줌 →GET요청
+
+URL에 경로를 적으면 서버에 GET요청을 하는 것임
+
+누군가가 /pet 으로 방문을 하면.. pet관련된 안내문을 띄워주자
