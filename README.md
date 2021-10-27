@@ -316,3 +316,86 @@ app.post('/add', function(req, res){
 // form에서 보낸 자료 (= res.body)
 
 ```
+
+## REST API
+
+서버 만들 때 REST 하게 API를 짜는게 좋음
+
+API는 무엇인가?
+
+Application Programming Interface
+
+API 규약에 따라 데이터 전달
+
+프로그램 간에 어떤 식으로 통신할 수 있는지 통신규약
+
+웹개발시에는
+
+= 웹서버와 고객간의 소통방법
+
+= 어떻게 해야 서버랑 통신을 할 수 있을까
+
+```jsx
+// 이것들이 전부 API이다
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/index.html')
+});
+
+app.get('/write', function(req, res){
+	res.sendFile(__dirname + '/write.html')
+});
+
+app.post('/add', function(req, res){
+	res.send('전송완료');
+	console.log(res.body.title);
+});
+```
+
+어떤식으로 만들어야 좋은 API일까?
+
+REST API
+
+API에 일관성도 없고 막만들어놓았기 때문에
+
+Roy Fielding
+
+HTTP 요청 시스템 (GET, POST, PUT, DELETE)
+
+REST 원칙에 의해서 쓰면 인터넷 세상이 평화로워진다 (라고 졸업논문을 썼다
+
+REST (Representational State Transfer)
+
+REST 원칙 6개
+
+1. Uniform Interface ** 가장 중요!
+하나의 자료는 하나의 URL로
+URL 하나를 알면 둘을 알 수 있어야함
+요청과 응답은 정보가 충분히 들어있어야 함
+2. Client-Server 역할 구분
+브라우저는 요청만 할 뿐
+서버는 응답만 할 뿐
+3. Stateless
+요청1과 요청2는 의존성이 없어야함
+4. Cacheable
+서버에서 보내주는 정보들은 캐싱이 가능해야함 (실은 브라우저가 알아서 해줌)
+캐싱을 위한 버전 같은 것도 관리 잘해야함
+5. Layered System
+6. Code on Demand
+
+```
+좋은 REST API 예시
+www.example.com/products/66432
+instagram.com/explore/tags/kpop/ -kpop 태그 검색
+facebook.com/natgeo/photos/
+
+```
+
+좋은 REST API
+
+이름짓기 원칙
+
+- URL을 명사로 작성 추천
+- 하위문서를 나타낼 땐 / 사용
+- 파일확장자(.html) 쓰지말기
+- 띄어쓰기는 대시(-) 이용
+- 자료 하나당 하나의 URL
