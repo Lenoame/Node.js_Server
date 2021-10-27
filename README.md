@@ -159,3 +159,160 @@ localhost:8080 → 8080포트로 들어가는 법
 URL에 경로를 적으면 서버에 GET요청을 하는 것임
 
 누군가가 /pet 으로 방문을 하면.. pet관련된 안내문을 띄워주자
+
+## 서버에서 HTML 파일전송해보기 & Nodemon으로 자동화
+고객 (Client) : 주소창에 URL을 입력해서 서버에 GET요청을 할 수 있음
+
+서버 : 누군가 /pet으로 들어오면 XX를 보내주세요~ 라고 코드를 짰다.
+
+```jsx
+//GET 요청
+app.get('/beauty', function(req, res){
+	res.send('뷰티용품 쇼핑할 수 있는 페이지입니다.');
+});
+
+```
+
+서버 재실행이 귀찮음 → 자동화시키기
+
+node. server.js
+
+```
+노드몬 라이브러리 설치 -g = global = 전역 설치
+npm install -g nodemon
+
+yarn 으로 설치 시
+yarn add global nodemon
+
+저장하면 서버를 재실행함
+nodemon server.js
+```
+
+powershell 보안오류 시
+
+1. 파워쉘 검색
+2. 관리자 권한으로 실행
+3. executionpolicy 입력
+4. set-executionpoliy unrestricted 입력
+5. y 입력 [yes]
+
+```jsx
+// 어쩌구로 접속시 HTML 파일을 보내보자
+
+// /으로 접속하면 index.html을 보내주기
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/index.html')
+});
+
+```
+
+/ 하나만 사용하면 홈페이지임
+
+```html
+// index.html
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTR-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta htt[-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+<body>
+	<h4>안녕하세요</h4>
+	<p>홈입니다</p>
+</body>
+</html>
+```
+
+## Bootstrap을 이용한 빠른 UI 개발
+HTML/CSS 라이브러리를 이용해서 쉽게 만들자
+
+구글에 Bootstrap 검색 후 방문
+
+Bootstrap v5는 IE지원 X
+
+Bootstrap v4는 IE11+
+
+Bootstrap v3은 IE9+
+
+Bootstrap 은 HTML/CSS 라이브러리이다.
+
+HTML 생코딩 없이 UI 개발 끝
+
+트위터 개발자들이 만듬
+
+원하는 UI 검색 후 예제코드 복붙하면 UI 개발 끝
+
+Bootstrap 설치는 Get started들어가서 Starter template예제 index.html에 복붙
+
+저장하고 새로고침 하면 Nodemon이 자동으로 서버를 재실행해줌
+
+사이트 대문을 만들고 싶으면 Jumbotron 검색
+
+## 폼에 입력한 데이터를 서버에 전송하는 법 (POST 요청)
+
+자바스크립트 문법
+
+.get()에 들어가는 파라미터 중 하나가(function(){}) = 콜백함수
+
+함수 안에 함수 (function(){}) = 콜백함수 → 순차적으로 실행하고 싶을 때 씀
+
+자바스크립트에서는 콜백함수를 자주 사용한다
+
+콜백함수에는 2개에 파라미터가 들어갈 수 있음
+
+.get('경로', function(요청내용, 응답할 방법){})
+
+.send(보낼 단어)
+
+.sendFile(보낼 파일)
+
+ES6 신문법 → .get('경로', (req, res) ⇒ {}) == .get('경로', function(req, res){})
+
+```
+body-parser 설치
+npm install body-parser
+
+yarn add body-parser
+```
+
+```jsx
+const express = require('ex[ress');
+const app = express():
+const bodyParser = require
+app.use(bodyParser.urlencoded({extended : true}));
+
+app.listen(8080, funtion(){
+	console.log('listening on 8080')
+});
+
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/index.html')
+});
+
+// 누가 /write로 접속하면 write.html 보내주세요~
+app.get('/write', function(req, res){
+	res.sendFile(__dirname + '/write.html')
+});
+
+// 어떤 사람이 /add 경로로 POST 요청을 하면... ?을 해주세요
+// POST요청 처리 기계를 만들려면 app.post('경로', 콜백함수)
+app.post('/add', function(req, res){
+	res.send('전송완료');
+	console.log(res.body.title);
+// 이렇게 코드를 짜면 input에 적은 정보가 서버로 전달된다 -> 터미널 확인
+
+});
+// input에 저장한 정보는 어디있을까? 파라미터 req에 있음. 근데 쉽게 꺼내쓰려면 라이브러리가 필요함 -> body-parser
+
+// 3. res.body라고 하면 요청했던 form에 적힌 데이터 수신가능
+app.post('/add', function(req, res){
+	res.send("전송완료");
+	console.log(res.body);
+	console.log(res.body.title);
+	console.log(res.body.date);
+});
+// form에서 보낸 자료 (= res.body)
+
+```
