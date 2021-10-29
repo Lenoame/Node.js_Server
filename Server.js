@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({extended : true}))
 
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine', 'ejs');
 
 //변수 하나 필요함
 var db;
@@ -63,3 +64,18 @@ app.post('/add', function(req, res){
 	console.log(res.body.date);
 });
 // form에서 보낸 자료 (= res.body)
+    
+app.post('/add', function(req, res) {
+	res.send('전송완료');
+	console.log(res.body.date);
+	console.log(res.body.title);
+	db.collection('post').insertOne({title : res.body.title, date : res.body.data}, function (error, result) {
+	console.log('저장완료');
+	});
+});
+    
+app.get('/list', function(req, res){
+    res.render('list.ejs');
+});
+    
+    
