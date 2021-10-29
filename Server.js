@@ -3,6 +3,23 @@ const app = express();
 const bodyParser = require
 app.use(bodyParser.urlencoded({extended : true}));
 
+const MongoClient = require('mongodb').MongoClient;
+
+//변수 하나 필요함
+var db;
+MongoClient.connect('mongodb+srv://Meno:<leno1104>@cluster0.pcniu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(error, client){
+	//연결되면 할일
+	if (error) [return console.log(error)
+	//todoapp 이라는 database(폴더)에 연결해주세요
+	db = client.db('todoapp');
+	//내 이름과 나이를 db에 저장해보자
+	//post라는 파일에 insertOne{data}를 저장해주세요
+	//name : 'Leno' -> Object자료형이다
+	//_id를 꼭 써주어야한다
+	db.collection('post').insertOne({_id : 111, name : 'Leno', age : 20}, function(error, result){
+		console.log('저장완료');
+	})
+    
 // 서버를 열 수 있는 명령어
 app.listen(8080, function(){
 	console.log('listening on 8080')

@@ -399,3 +399,20 @@ facebook.com/natgeo/photos/
 - 파일확장자(.html) 쓰지말기
 - 띄어쓰기는 대시(-) 이용
 - 자료 하나당 하나의 URL
+
+## Database에 자료 저장하는 법
+1. MongoDB Atlas 메인 대시보드에서 Collections 라는 버튼을 누릅니다.
+2. 이번엔 Add my own data 버튼을 누릅니다. (혹은 이미 뭐가 있다면 create database)
+3. 여러분이 database 이름, collection 이름을 예쁘게 하나씩 정해준 다음 저장을 눌러줍니다.
+
+서버 띄울 때는 터미널 하나만 사용하기
+
+mongodb는 Object 자료형으로 저장되고 schema를 신경 안써도 된다.
+
+_id : ObjectId() → 자료저장시 _id 꼭 적어야한다. 안적으면 하나 강제로 부여해줌
+
+어떤 사람이 /add 라는 경로로 post 요청을 하면,
+
+데이터 2개(날짜, 제목)를 보내주는데,
+
+이 때, 'post' 라는 이름을 가진 collection에 두 개 데이터를 저장하기
