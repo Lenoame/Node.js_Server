@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 //변수 하나 필요함
 var db;
-MongoClient.connect('mongodb+srv://Meno:<leno1104>@cluster0.pcniu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(error, client){
+MongoClient.connect('mongodb+srv://Meno:<password>@cluster0.pcniu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(error, client){
 	//연결되면 할일
 	if (error) [return console.log(error)
 	//todoapp 이라는 database(폴더)에 연결해주세요
