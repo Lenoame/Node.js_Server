@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require
 app.use(bodyParser.urlencoded({extended : true}))
-
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
+
 
 //변수 하나 필요함
 var db;
@@ -75,7 +75,17 @@ app.post('/add', function(req, res) {
 });
     
 app.get('/list', function(req, res){
-    res.render('list.ejs');
+	//DB에 저장된 post라는 collection 안에 모든 데이터를 꺼내주세요.
+	//모든 데이터를 다 가져올 수 있음
+	db.collection('post').find().toArray(function(error, result){
+		console.log(result);
+		// 1. DB에서 자료 찾아주세요
+		// 2. 찾은거 ejs 파일에 집어넣어주세요
+		// Object 형식으로 집어넣기
+		res.render('list.ejs', {posts : result});
+	});
 });
+//꺼낸 데이터 EJS 파일에 집어넣기
+
     
     
