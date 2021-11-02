@@ -583,3 +583,23 @@ let 재선언 X 재할당 O 생존범위는 {} 내부
 const로 만든 변수는 재선언 X 재할당 X {} 내부
 
 변수 색이 흐릿한 이유 : 선언하고 안쓰면 흐릿해짐
+
+## DB Update 함수와 inc 연산자
+
+콜백함수는 순차적 실행을 위해서 사용합니다
+
+.updateOne(수정할 데이터, 이렇게 수정해주세요[operator 사용])
+
+ update operator 연산자
+
+- $set(변경)
+- $inc(증가)
+- $min(기존값보다 적을 때만 변경)
+- $rename(key값 이름변경)
+- ...
+
+{$set : {totalPost : 바꿀 값}}
+
+{$inc : {totalPost : 기존 값에 더해줄 값}} increment의 약자
+
+한 줄씩 적어가면서 해석하는게 남의 코드 해석하는 가장 좋은 방법이다

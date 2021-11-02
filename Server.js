@@ -79,19 +79,26 @@ app.post('/add', function(req, res) {
 // 저장되는 시점에 따 혼선유발가능 : 애초에 고유한 id를 부여하는 것이 좋음
 // 영구적으로 번호를 지정해서 저장하는 것이 좋음
 // 발행된 총 게시물 갯수를 기록하는 저장공간
+    
+//누가 폼에서 /add로 POST 요청하면
 app.post('/add', function(req, res) {
 	res.send('전송완료');
 	//쿼리문
 	//add로 post 요청하면 (폼전송하면) DB의 총게시물갯수 데이터 가져오기
 	db.collection('counter').findOne({name : '게시물갯수'}, function(error, result){
 		console.log(result.totalPost)
-		var totalPostNum = result.totalPost;
-
+		var totalPostNum = result.totalPost; // 총게시물갯수를 변수에 저장
 	// 그게 완료되면 _id : totalPostNum + 1 해서 새로운 데이터를 post 콜렉션에 저장
-		db.collection('post').insertOne({ _id : totalPostNum + 1, title : res.body.title, date : res.body.date}, function(error, result){
+        //DB.post에 새게시물을 기록함
+        //총게시물갯수 + 1, 제목 날짜 저장해주세요
+		db.collection('post').insertOne({ _id : totalPostNum + 1, title : req.body.title, date : req.body.date}, function(error, result){
 			console.log('저장완료');
+            //DB 데이터를 수정해주세요~
+            //완료되면 DB.counter내의 총게시물갯수 + 1
+            db.collection('counter').updateOne({name : 'totalPostNum'}, {$inc : {totalPost : 1}}, function(error, result){
+                if (error) {return console.log(error)}
+            });
 		});
-// 게시물 하나 등록할 때마다 counter항목도 1 증가시켜야함
 	});
 });
 
