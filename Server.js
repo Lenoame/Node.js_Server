@@ -116,5 +116,8 @@ app.get('/list', function(req, res){
 });
 //꺼낸 데이터 EJS 파일에 집어넣기
 
-    
+app.delete('/delete', function(req, res){
+	console.log(req.body) // 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
+	
+})
     

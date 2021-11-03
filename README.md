@@ -603,3 +603,31 @@ const로 만든 변수는 재선언 X 재할당 X {} 내부
 {$inc : {totalPost : 기존 값에 더해줄 값}} increment의 약자
 
 한 줄씩 적어가면서 해석하는게 남의 코드 해석하는 가장 좋은 방법이다
+
+## AJAX로 삭제요청하기
+서버에 해당 글 삭제 요청을 함 (DELETE 요청)
+
+(HTML에서는 불가능) → HTML에서는 GET/POST 요청만 할 수 있음
+
+DELETE 요청하는 법
+
+1. method-override 라이브러리 이용
+- Node에서 쓸 수 있는
+- (form에서 DELETE 요청 가능해짐)
+1. JavaScript AJAX를 이용
+- 서버 만들 때 꼭 필요하다
+
+DELETE 요청하기 전 더러운 HTML 예쁘게 꾸미기 (list group 검색 후 복붙)
+
+AJAX는 새로고침 없이 서버에 요청하는 것을 도와주는 JS 문법
+
+$.ajax({
+
+method : 'DELETE',
+
+url : '요청할경로',
+
+data : '요청과 함께 보낼 데이터'
+})
+
+요청보낼 때 삭제할 게시물 번호를 함께 전송
