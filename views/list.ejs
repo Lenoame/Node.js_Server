@@ -56,25 +56,26 @@
 	<ul class="list-group">
 		<% for (var i = 0; i < posts.length; i++){ %>
 		<li class="list-group-item">
-			<h4> 할일 제목 : <%=posts[i].title%></h4>
-			<p> 할일 마감날짜 : <%= posts[i].date%> </p>
-			<button>삭제</button>
-		</li>
+			<p>글번호 : <%= posts[i]._id %></p>
+			<h4>할일 제목 : <%=posts[i].title%></h4>
+			<p>할일 마감날짜 : <%= posts[i].date%> </p>
+			<button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
+		</li> <!--버튼 정보 숨기기-->
 		<% } %>
-	</ul>
+    </ul>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>	
-
-	<script>
-		$.ajax({
-			method : 'DELETE',
-			url : '/delete',
-			data : '게시물번호'
-		}).done(function(result){
-
-});
+	<script src="https://code.jquery.com/jquery-3.6.0.js"><script>
+		$('.delete').click(function(e){
+			var postNum = e.target.dataset.id;
+			$.ajax({
+				method : 'DELETE',
+				url : '/delete',
+				data : {_id :postNum} <!--여기 요소를 바꿔야 x번 요소가 삭제된다-->
+			}).done(function(result){ <!--AJAX 성공시 실행할 코드는 여기-->
+					
+		});
+	}) <!--class가 delete인 요소를 클릭하면 AJAX 요청을 해주세요-->
 	</script>
-
 	
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

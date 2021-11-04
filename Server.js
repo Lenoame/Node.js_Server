@@ -117,7 +117,14 @@ app.get('/list', function(req, res){
 //꺼낸 데이터 EJS 파일에 집어넣기
 
 app.delete('/delete', function(req, res){
-	console.log(req.body) // 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
+	console.log(req.body);
+	req.body._id = parseInt(req.body._id); // 특정 값을 정수로 바꿔줌 
+	// 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
+	db.collection('post').deleteOne(req.body, function(error, result) {
+		console.log('삭제완료');
+	})
+
+	// DELETE 요청시 ... 게시물번호(_id)에 따라 DB에서 삭제
 	
 })
     

@@ -631,3 +631,30 @@ data : '요청과 함께 보낼 데이터'
 })
 
 요청보낼 때 삭제할 게시물 번호를 함께 전송
+
+db.collection('post').deleteOne({어떤 항목을 삭제할지}, function() {
+delete 요청을 실행했을 때 실행할 구문;
+})
+
+삭제되어야 하는데 삭제가 안되었군
+
+(얘는 따옴표 없는 숫자)
+
+우린 숫자를 요청했는데 왜 문자가 요청되는가. req.body를 숫자를 바꿔주기
+
+x 번 버튼을 누르면  x번 게시물이 삭제되어야함
+
+1. HTML 버튼마다 번호달기
+2. 클릭한 버튼의 id를 파악하기
+3. 그걸 DELETE 요청시 함께 넣기
+
+data-id=" " → HTML 안에다가 몰래 정보들을 숨겨서 전달 가능하다
+
+$('.delete').click(function(e){
+    var postNum = e.target.dataset.id;
+
+[e.target](http://e.target) 지금 누른 요소
+
+[dataset.id](http://dataset.id) 지금 누른 요소의 아이디를 가져와주세요
+
+AJAX는 새로고침 없이 서버에게 요청하는 방법이다 (요청은 잘 처리된다)
