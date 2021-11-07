@@ -122,6 +122,13 @@ app.delete('/delete', function(req, res){
 	// 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
 	db.collection('post').deleteOne(req.body, function(error, result) {
 		console.log('삭제완료');
+        //터미널 창에 출력
+        res.status(200).send({message : '성공했습니다'});
+        //응답코드 200을 보내주세요
+        //그럼 실패시 뭘 실행해야 하는가
+        res.status(400).send({message : '실패했습니다'})
+        // 실패시 코드
+        // 4XX를 보내면 고객 잘못으로 요청 실패라는 뜻
 	})
 
 	// DELETE 요청시 ... 게시물번호(_id)에 따라 DB에서 삭제

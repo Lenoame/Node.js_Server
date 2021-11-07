@@ -658,3 +658,29 @@ $('.delete').click(function(e){
 [dataset.id](http://dataset.id) 지금 누른 요소의 아이디를 가져와주세요
 
 AJAX는 새로고침 없이 서버에게 요청하는 방법이다 (요청은 잘 처리된다)
+
+응답코드
+
+서버에서 안내메세지를 띄워주는 것
+
+2XX를 보내면 요청성공이라는 뜻
+
+4XX를 보내면 고객 잘못으로 요청실패라는 뜻
+
+5XX를 보내면 서버 문제로 요청실패라는 뜻
+
+[e.target](http://e.target) = 지금 클릭한 것
+
+this = 지금 이벤트가 동작하는 곳
+
+.parent() = ~의 부모 태그를 찾아주세요
+
+.fadeOut() = 서서히 사라지게 해주세요
+
+.done(function()) = 성공시 실행
+
+.fail(function()) = 실패시 실행
+
+textStatus 인자 fail함수에 2번째 파라미터를 실행해보면 응답 코드가 나옴
+
+errorThrown 에러메세지 출력

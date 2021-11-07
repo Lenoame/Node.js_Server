@@ -64,17 +64,27 @@
 		<% } %>
     </ul>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.js"><script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js">
+        //class가 delete인 요소를 클릭하면 AJAX 요청을 해주세요
 		$('.delete').click(function(e){
 			var postNum = e.target.dataset.id;
+            var nowClick = $(this);
 			$.ajax({
 				method : 'DELETE',
 				url : '/delete',
-				data : {_id :postNum} <!--여기 요소를 바꿔야 x번 요소가 삭제된다-->
-			}).done(function(result){ <!--AJAX 성공시 실행할 코드는 여기-->
-					
-		});
-	}) <!--class가 delete인 요소를 클릭하면 AJAX 요청을 해주세요-->
+				data : {_id :postNum} //여기 요소를 바꿔야 x번 요소가 삭제된다
+			}).done(function(result){ //AJAX 성공시 실행할 코드는 여기
+                //페이지를 강제로 새로고침해주세요
+                //삭제버튼을 누른 <li>요소를 제거해주세요/안보이게
+                console.log('성공했습니다');
+                //성공했을 때 실행할 코드
+                //브라우저 콘솔창에 출력
+                nowClick.parent('li').fadeOut();
+		}).fail(function(xhr, testStatus, errorThrown){
+                //요청이 실패시 실행할  코드는 여기 
+                console.log(xhr, testStatus, errorThrown);
+            })
+	}) 
 	</script>
 	
 
