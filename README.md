@@ -684,3 +684,27 @@ this = 지금 이벤트가 동작하는 곳
 textStatus 인자 fail함수에 2번째 파라미터를 실행해보면 응답 코드가 나옴
 
 errorThrown 에러메세지 출력
+
+## 상세페이지 만들어보기
+Q. detail.ejs는 언제 보여줘야하나요?
+
+// /detail로 접속하면 detail.ejs 보여주기
+// /detail2로 접속하며 detail2.ejs 보여주기
+
+url의 뒤에 숫자가 무엇일까요? → 글번호임
+
+Parameter로 요청 가능한 URL 백개 만들기
+
+app.get('/detail/:id',)
+
+콜론 뒤에 아무 문자나 입력해서 GET요청을 하면/detail로 보내주세요
+
+Parameter로 요청가능한 URL 백 개 만들기
+
+findOne({_id : res.parmas.id} 파라미터 중 : id라는 뜻
+
+왜 DB에서 찾은 게시물이 없는가?
+
+보통 아무것도 지정하지 않으면 요청은 string으로 처리됨
+
+앞에 parseInt함수 붙이기

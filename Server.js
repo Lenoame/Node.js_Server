@@ -134,4 +134,13 @@ app.delete('/delete', function(req, res){
 	// DELETE 요청시 ... 게시물번호(_id)에 따라 DB에서 삭제
 	
 })
-    
+
+app.get('/detail/:id', function(req, res){
+	//db에서 {_id : 1}인 것을 찾아주세요~
+	db.collection('post').findOne({_id : parseInt(res.params.id)}, function(error, result){
+		console.log(result);
+		res.render('detail.ejs, [ data : result } ); //db에서 찾은 결과물
+	})
+	
+})
+
