@@ -5,12 +5,16 @@ app.use(bodyParser.urlencoded({extended : true}))
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
 
+//static 파일을 보관하기 위해 public 폴더를 쓸거다
+app.use('/public', express.static('public'));
 
 //변수 하나 필요함
 var db;
 MongoClient.connect('mongodb+srv://Meno:<password>@cluster0.pcniu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(error, client){
 	//연결되면 할일
-	if (error) [return console.log(error)
+	if (error) {
+        return console.log(error)
+    }
 	//todoapp 이라는 database(폴더)에 연결해주세요
 	db = client.db('todoapp');
 	//내 이름과 나이를 db에 저장해보자

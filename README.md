@@ -708,3 +708,28 @@ findOne({_id : res.parmas.id} 파라미터 중 : id라는 뜻
 보통 아무것도 지정하지 않으면 요청은 string으로 처리됨
 
 앞에 parseInt함수 붙이기
+
+## HTML 조립식 개발하기
+mt-4 = margin top을 4만큼 달라는 뜻
+
+pt-4 = padding top을 4만큼 달라는 뜻
+
+mb = margin bottom
+
+폴더를 만들어서 css파일 만들기 - public/main.css 생성
+
+CSS파일은 static files 라고 함 → 정적인 파일
+href 태그에 무언가를 적어주면 링크를 달아줄 수 있음
+
+문제 : nav 수정할 ejs파일이 너무 많음
+
+여러 페이지에 걸쳐 있는 똑같은 태그를 바꾸려면 번거로움
+
+nav태그 조립식 첨부
+
+- views/nav.html 생성
+- <nav>전부 복붙
+- index.html에 첨부
+- 이렇게 하면 파일 하나만 추가하면 모두 변경시킬 수 있다
+- ejs파일만 가능 html에서는 jQuery를 사용해야 함
+- detail.ejs에 첨부
