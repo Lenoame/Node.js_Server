@@ -733,3 +733,27 @@ nav태그 조립식 첨부
 - 이렇게 하면 파일 하나만 추가하면 모두 변경시킬 수 있다
 - ejs파일만 가능 html에서는 jQuery를 사용해야 함
 - detail.ejs에 첨부
+
+## 글 수정 기능
+edit.ejs 만들자
+
+- write페이지와 유사함
+- 입력했던 제목, 날짜가 이미 채워짐
+- 전송누르면 Edit기능을 함 (솔직히 혼자 가능)
+
+가장 쉬운 방법 → 일단 보이는 걸 만들자 → 다음 기능 만들기
+
+게시글마다 각각 다른 edit.ejs 내용이 필요함 → /edit/:id 로 라우팅하기
+
+이상한 경로로 접속하면 에러처리(알아서)
+
+<input value= > input 값을 미리 채워놓을 수 있음
+
+수정요청시 사용한다던 PUT 요청을 써보자 (HTML5로는 못함)
+
+<form> 안에는 GET or POST밖에 안된다
+
+```
+npm install method-override
+HTML에서 PUT/DELETE 요청하려면 설치하기
+```

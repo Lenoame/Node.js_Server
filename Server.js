@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require
 app.use(bodyParser.urlencoded({extended : true}))
 const MongoClient = require('mongodb').MongoClient;
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 app.set('view engine', 'ejs');
 
 //static 파일을 보관하기 위해 public 폴더를 쓸거다
@@ -48,6 +50,14 @@ app.get('/', function(req, res){
 // 누가 /write로 접속하면 write.html 보내주세요~
 app.get('/write', function(req, res){
 	res.sendFile(__dirname + '/write.html')
+});
+    
+app.get('/edit/:id', function(req, res) {
+	//url의 입력한 id부분을 불러와주세요
+	db.collection('post').findOne({_id : parseInt(res.params.id)}, function(error, result){
+		console.log(result) //결과 출력해보기
+		res.render('edit.ejs', {post : result})
+	})
 });
 
 // 어떤 사람이 /add 경로로 POST 요청을 하면... ?을 해주세요
