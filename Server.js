@@ -59,6 +59,17 @@ app.get('/edit/:id', function(req, res) {
 		res.render('edit.ejs', {post : result})
 	})
 });
+    
+    
+app.put('/edit', function(req, res){
+    // 폼에 담긴 제목 데이터, 날짜 데이터를 가지고
+    // db.collection에다가 업데이트 하기
+    db.collection('post').updateOne({ _id : parseInt(res.body.id)}, { $set : {title : req.body.title, date : req.body.date }}, function(error, result){
+        console.log('수정완료')
+        res.redirect('/list')
+        // 응답은 
+  })
+})
 
 // 어떤 사람이 /add 경로로 POST 요청을 하면... ?을 해주세요
 // POST요청 처리 기계를 만들려면 app.post('경로', 콜백함수)

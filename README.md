@@ -757,3 +757,18 @@ edit.ejs 만들자
 npm install method-override
 HTML에서 PUT/DELETE 요청하려면 설치하기
 ```
+
+한글로 코드를 써 놓고 코드를 짜면 많이 도움이 된다.
+
+updateOne(어떤 게시물 수정할건지, 수정값, 콜백함수)
+
+$set 업데이트 해주세요. 없으면 추가해주세요 라는 내용의 오퍼레이터
+
+폼 전송시 _id : ?? 정보도 함께 보내기
+
+1. 몰래 input을 만들고 value에 정보를 넣음
+2. name 쓰기
+
+폼에서 전송한 제목, 날짜로 db.collection('post')에서 게시물을 찾아서 업데이트
+
+읽기 쓰기 수정 삭제 CRUD 만 알면 기본적인 것을 다 구현할 수 있다
