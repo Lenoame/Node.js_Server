@@ -162,10 +162,51 @@ app.delete('/delete', function(req, res){
 
 app.get('/detail/:id', function(req, res){
 	//db에서 {_id : 1}인 것을 찾아주세요~
-	db.collection('post').findOne({_id : parseInt(res.params.id)}, function(error, result){
+	db.collection('post').findOne({_id : parseInt(res.params.id)}, function(error, result) {
 		console.log(result);
-		res.render('detail.ejs, [ data : result } ); //db에서 찾은 결과물
-	})
+		res.render('detail.ejs', { data : result } ); 
+    //db에서 찾은 결과물
+	    });
 	
-})
+});
+    
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
 
+app.use(session({secret : 'secreCode', resave : ture, saveUninitialized : false}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', function(req, res){
+    res.render('login.ejs')
+});
+    
+app.post('/login', passport.authenticate('local', {
+    failureRedirect : '/fail'
+    // 회원 인증 실패하면 /fail로 이동
+}), function(req, res) {
+    res.redirect('/')
+});
+// 아이디 비번이 맞으면 로그인 성공페이지로 보내줘야함
+    
+passport.use(new LocalStrategy({
+	// 유저가 입력한 아이디/비번 항목이 뭔지 정의(name속성)
+  usernameField: 'id',
+  passwordField: 'pw',
+	// 로그인 후 세션을 저장할 것인지
+  session: true,
+  passReqToCallback: false,
+	// 아이디/비번 말고도 다른 정보 검증시
+}, function (입력한아이디, 입력한비번, done) {
+  //console.log(입력한아이디, 입력한비번);
+  db.collection('login').findOne({ id: 입력한아이디 }, function (에러, 결과) {
+    if (에러) return done(에러)
+    if (!결과) return done(null, false, { message: '존재하지않는 아이디요' })
+    if (입력한비번 == 결과.pw) {
+      return done(null, 결과)
+    } else {
+      return done(null, false, { message: '비번틀렸어요' })
+    }
+  })
+}));
