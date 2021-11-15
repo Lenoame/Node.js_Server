@@ -210,3 +210,16 @@ passport.use(new LocalStrategy({
     }
   })
 }));
+    
+    
+// id를 이용해서 세션을 저장시키는 코드 (로그인 성공시 발동)
+// 아이디/비번 검증 성공시 여기로 보냄
+// 세션 데이터를 만들고 세션의 id 정보를 쿠키로 보냄
+passport.serializeUser(function(user, done){
+    done(null, user.id)
+});
+
+// 이 세션 데이터를 가진 사람을 DB에서 찾아주세요(마이페이지 접속 시 발동)
+passport.deserializeUser(function(id, done){
+    done(null, {})
+});
