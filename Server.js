@@ -166,7 +166,7 @@ app.get('/detail/:id', function(req, res){
 		console.log(result);
 		res.render('detail.ejs', { data : result } ); 
     //db에서 찾은 결과물
-	    });
+	});
 	
 });
     
@@ -183,43 +183,67 @@ app.get('/login', function(req, res){
 });
     
 app.post('/login', passport.authenticate('local', {
-    failureRedirect : '/fail'
-    // 회원 인증 실패하면 /fail로 이동
+   failureRedirect : '/fail'
+   // 회원 인증 실패하면 /fail로 이동
 }), function(req, res) {
     res.redirect('/')
 });
 // 아이디 비번이 맞으면 로그인 성공페이지로 보내줘야함
-    
+
+// 미들웨어 쓰는 법
+app.get('/mypage', function(req, res){
+	console.log(req.user);
+	res.render('mypage.ejs', {사용자 : req.user})
+});
+
+// 마이페이지 접속 전 실행할 미들웨어
+// 미들웨어 만드는 법
+function doLogin(req, res, next){
+	// req.user가 있으면 next() (통과)
+	if (req.user){
+		next()
+	// req.user가 없으면 경고메세지 응답
+	} else {
+		res.send('로그인안하셨는데요?')
+	}
+}
+// 로그인 후 세션이 있으면 req.user가 항상 있음
+
 passport.use(new LocalStrategy({
 	// 유저가 입력한 아이디/비번 항목이 뭔지 정의(name속성)
-  usernameField: 'id',
-  passwordField: 'pw',
+	usernameField: 'id',
+	passwordField: 'pw',
 	// 로그인 후 세션을 저장할 것인지
-  session: true,
-  passReqToCallback: false,
+    session: true,
+    passReqToCallback: false,
 	// 아이디/비번 말고도 다른 정보 검증시
 }, function (입력한아이디, 입력한비번, done) {
   //console.log(입력한아이디, 입력한비번);
-  db.collection('login').findOne({ id: 입력한아이디 }, function (에러, 결과) {
+    db.collection('login').findOne({ id: 입력한아이디 }, function (에러, 결과) {
     if (에러) return done(에러)
     if (!결과) return done(null, false, { message: '존재하지않는 아이디요' })
     if (입력한비번 == 결과.pw) {
-      return done(null, 결과)
+        return done(null, 결과)
     } else {
       return done(null, false, { message: '비번틀렸어요' })
     }
   })
 }));
     
-    
+ 
 // id를 이용해서 세션을 저장시키는 코드 (로그인 성공시 발동)
 // 아이디/비번 검증 성공시 여기로 보냄
 // 세션 데이터를 만들고 세션의 id 정보를 쿠키로 보냄
 passport.serializeUser(function(user, done){
-    done(null, user.id)
+   done(null, user.id)
 });
 
 // 이 세션 데이터를 가진 사람을 DB에서 찾아주세요(마이페이지 접속 시 발동)
 passport.deserializeUser(function(id, done){
-    done(null, {})
+	//DB에서 위에있는 user.id로 유저를 찾은 뒤에 유저 정보를
+	db.collection('login').findOne({id : 아이디}, function(error, result){
+		done(null, {result})
+	})
 });
+// 마이페이지 접속시 DB에서 {id : 어쩌구} 인걸 찾아서 그 결과를 보내줌
+// 로그인한 유저의 개인정보를 DB에서 찾는 역할
