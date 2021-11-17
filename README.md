@@ -903,3 +903,23 @@ deserializeUser()
 로그인한 유저의 세션아이디를 바탕으로 개인정보를 DB에서 찾는 역할
 
 로그인기능의 흐름을 잘 아는게 중요하다
+
+## 검색기능 만들기
+검색 누르면 새로운 페이지에서 검색결과 보여주는 기능
+
+1. 검색버튼 누르면 서버에게 요청
+2. 서버는 DB에서 데이터 꺼내줌
+
+하나 찾을 때 collection().findOne()
+
+여러 개 찾을 때 collection().find().toArray()
+
+그걸 ejs파일로 보내주고 그러면 끝남
+
+GET 요청으로 서버로 데이터 전달가능
+
+GET요청은 URL만 잘 작성하면 된다
+
+query string(query parameter = 서버로 몰래 전달되는 정보들
+
+query string 작성방법 = localhost:8080/list?데이터이름(이(http://localhost:8080/list?데이터이름(이) 이름으로=데이터값(이 데이터가 서버로 전송된다)

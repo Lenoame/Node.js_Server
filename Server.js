@@ -247,3 +247,14 @@ passport.deserializeUser(function(id, done){
 });
 // 마이페이지 접속시 DB에서 {id : 어쩌구} 인걸 찾아서 그 결과를 보내줌
 // 로그인한 유저의 개인정보를 DB에서 찾는 역할
+  
+// 서버에서 query string 꺼내는 법
+app.get('/search', (req, res) => {
+	console.log(req.query.value); // 쿼리 요청
+	db.collection('post').find({title : req.query.value}).toArray((error, result)=>{
+		console.log(result)
+		res.render()
+	})
+})
+// 제목이 정확히 일치하는 것만 찾아준다
+// 포괄적으로 찾아려면 어떻게 해야할까

@@ -67,7 +67,14 @@
             <% } %>
         </ul>
     </div>
-	<script src="https://code.jquery.com/jquery-3.6.0.js">
+    
+    <h4 class="ml-2 my-3 text-center">서버에서 가져온 할일 리스트</h4>
+
+    <div class="container input-group mb-2">
+        <input class="form-control" id="search-input">
+        <button class="input-group-append btn btn-danger">검색</button>
+    </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.js">
         //class가 delete인 요소를 클릭하면 AJAX 요청을 해주세요
 		$('.delete').click(function(e){
 			var postNum = e.target.dataset.id;
@@ -88,6 +95,13 @@
                 console.log(xhr, testStatus, errorThrown);
             })
 	}) 
+            
+        	// 검색버튼 누르면 서버로 GET요청합시다 + query string으로 정보전달도
+	$('#search').click(function(){
+		var tiping $('#search-input').val() // input에 유저가 입력한 값
+		window.location.replace('/search?value=' + tiping) // 현재페이지 url바꾸는 법 (실은 GET요청이랑 똑같다)
+	})
+
 	</script>
 	
 
