@@ -258,3 +258,11 @@ app.get('/search', (req, res) => {
 })
 // 제목이 정확히 일치하는 것만 찾아준다
 // 포괄적으로 찾아려면 어떻게 해야할까
+    
+app.get('/search', (req, res) => {
+	db.collection('post').find({title : req.query.value}).toArray((error, result) => {
+		console.log(result)
+		res.render('search.ejs', {posts : result})
+		// ejs 파일에 데이터 보내기
+	})
+})

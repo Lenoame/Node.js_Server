@@ -923,3 +923,25 @@ GET요청은 URL만 잘 작성하면 된다
 query string(query parameter = 서버로 몰래 전달되는 정보들
 
 query string 작성방법 = localhost:8080/list?데이터이름(이(http://localhost:8080/list?데이터이름(이) 이름으로=데이터값(이 데이터가 서버로 전송된다)
+
+문제점 : 정확히 일치하는 것만 찾아줌
+
+- 정규식 쓰면 간단히 해결 → 정규식은 문자 검사하는 식이다
+- 또 문제점 : 그냥 find()로 다 찾는건 항상 오래 걸린다
+- indexing 해두면 게시물 1억개라도 빨리 찾아진다
+
+Binary Search를 사용하면 검색 속도가 빨라진다
+
+- 전제조건 : 미리 숫자순서대로 정렬이 되어있어야 한다.
+- 미리 정렬해두면 (indexing 해두면) DB는 알아서 Binary Search로 찾아준다
+
+index 생성방법
+
+- 어떤 항목을 정렬하고 싶은지 작성
+- 문자자료는 type을 'text'로 작성
+- 숫자 자료는 type을 1 or -1로 작성
+
+1. Binary Search 적용하고 싶으면 Index를 만들어 주기
+2. MongoDB 문자자료는 index만들 때 한꺼번에 하기
+3. DB조작은 원래 터미널로 합니다
+터미널에 DB접속해서 .. 이것저것 명령을 내린다
