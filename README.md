@@ -945,3 +945,36 @@ index 생성방법
 2. MongoDB 문자자료는 index만들 때 한꺼번에 하기
 3. DB조작은 원래 터미널로 합니다
 터미널에 DB접속해서 .. 이것저것 명령을 내린다
+
+index만들어둔걸로 빠르게 검색하려면
+
+text index 만들어두면
+
+1. 빠른 검색
+2. 여러 키워드를 검색 가능
+3. -제외가능
+4. "정확히 일치하는 것만" 검색 가능 ""사용시
+
+text index 문제점
+
+1. 한글 친화적이지 않음
+2. 띄어쓰기 기준으로 단어를 저장함(mongoDB 특징)
+3. 한국 중국 일본어에는 쓰지 말자
+
+해결책
+
+1. 그냥 text index 쓰지 말고 검색할 문서의 양을 제한해두기(ex. 날짜로 1000개)
+2. text index 만들 때 다르게 만들기(mongoDB Atlas에서는 못씀)(띄어쓰기 단위로 indexing 금지 / 글자 두개 단위로 indexing 해봐라(nGram))
+3. 방금 만든 index 버리기(Drop index) → search index 만들기
+
+    Create Search index
+
+    Index Name 잘 지어야 함
+
+    어떤 컬렉션에서 인덱스를 만들지 선택해야한다
+
+    lucene.korean 찾아 적용하기(필요없는 조사를 걸러준다. 검색정확도 높아짐)
+
+    indexing 하면 용량을 차지한다 → 꼭 필요한 것만 indexing 해두기
+
+searchScore : mongoDB 가 검색할 때 점수를 매겨줌. 검색어와 게시물이 얼마나 관련 있는지 점수를 계산해줌

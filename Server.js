@@ -260,7 +260,23 @@ app.get('/search', (req, res) => {
 // 포괄적으로 찾아려면 어떻게 해야할까
     
 app.get('/search', (req, res) => {
-	db.collection('post').find({title : req.query.value}).toArray((error, result) => {
+		//index만들어둔걸로 빠르게 검색하려면
+	var 검색조건 = [
+		{
+			$search : {
+				index : 'titleSearch',
+				text : {
+					query : req.query.value,
+					path : 'title'
+				}
+			}
+		},
+		// 검색조건 더 주는 법 : - 결과 정렬하기
+		{ $sort : { _id : -1 } },
+		{ $limit : 10 }, // 갯수 제한 두기
+		{ $project : { title : 1, _id : 0, score : { $meta : "searchScore" } } } // 검색결과에서 필터주기
+	]
+	db.collection('post').aggregate(검색조건).toArray((error, result) => {
 		console.log(result)
 		res.render('search.ejs', {posts : result})
 		// ejs 파일에 데이터 보내기
