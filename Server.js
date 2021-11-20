@@ -110,12 +110,13 @@ app.post('/add', function(req, res) {
 	res.send('전송완료');
 	//쿼리문
 	//add로 post 요청하면 (폼전송하면) DB의 총게시물갯수 데이터 가져오기
-	db.collection('counter').findOne({name : '게시물갯수'}, function(error, result){
-		console.log(result.totalPost)
-		var totalPostNum = result.totalPost; // 총게시물갯수를 변수에 저장
+	    db.collection('counter').findOne({name : '게시물갯수'}, function(error, result){
+        console.log(result.totalPost);
+	    var totalPostNum = result.totalPost; // 총게시물갯수를 변수에 저장
 	// 그게 완료되면 _id : totalPostNum + 1 해서 새로운 데이터를 post 콜렉션에 저장
         //DB.post에 새게시물을 기록함
         //총게시물갯수 + 1, 제목 날짜 저장해주세요
+        var saveThings = { _id : totalPostNum + 1, host : req.user._id, title : req.body.title, date : req.body.date };
 		db.collection('post').insertOne({ _id : totalPostNum + 1, title : req.body.title, date : req.body.date}, function(error, result){
 			console.log('저장완료');
             //DB 데이터를 수정해주세요~
@@ -140,25 +141,6 @@ app.get('/list', function(req, res){
 	});
 });
 //꺼낸 데이터 EJS 파일에 집어넣기
-
-app.delete('/delete', function(req, res){
-	console.log(req.body);
-	req.body._id = parseInt(req.body._id); // 특정 값을 정수로 바꿔줌 
-	// 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
-	db.collection('post').deleteOne(req.body, function(error, result) {
-		console.log('삭제완료');
-        //터미널 창에 출력
-        res.status(200).send({message : '성공했습니다'});
-        //응답코드 200을 보내주세요
-        //그럼 실패시 뭘 실행해야 하는가
-        res.status(400).send({message : '실패했습니다'})
-        // 실패시 코드
-        // 4XX를 보내면 고객 잘못으로 요청 실패라는 뜻
-	})
-
-	// DELETE 요청시 ... 게시물번호(_id)에 따라 DB에서 삭제
-	
-})
 
 app.get('/detail/:id', function(req, res){
 	//db에서 {_id : 1}인 것을 찾아주세요~
@@ -247,7 +229,43 @@ passport.deserializeUser(function(id, done){
 });
 // 마이페이지 접속시 DB에서 {id : 어쩌구} 인걸 찾아서 그 결과를 보내줌
 // 로그인한 유저의 개인정보를 DB에서 찾는 역할
-  
+
+// 회원기능이 필요하면 passport 셋팅하는 부분이 위에 있어야 한다
+app.post('/register', function(req, res){
+	// 유저가 입력한 id/pw DB에 저장하자
+	// 아이디 중복검사는 하고 저장해야함 
+	// 저장 전에 id가 이미 있는지 먼저 찾아봐야함
+	// id에 알파벳 숫자만 잘 들어있나
+	// 비번 저장 전에 암호화했나
+	db.collection('login').insertOne({ id : req.body.id, pw : req.body.pw  }, function(error, result){
+		res.redirect('/')
+	})
+})  
+
+app.delete('/delete', function(req, res){
+    console.log('삭제요청들어옴');
+	console.log(req.body);
+	req.body._id = parseInt(req.body._id); // 특정 값을 정수로 바꿔줌 
+	// 요청시 함께 보낸 데이터를 찾으려면 요렇게 (아까 그 게시물 번호)
+    
+    // 둘 다 만족하는 게시물을 찾아서 삭제해준다]
+    var deleteData = { _id : req.body._id, host : req.user_id };
+	db.collection('post').deleteOne(req.body, function(error, result) {
+		console.log('삭제완료');
+        //터미널 창에 출력
+        if (result) {console.log(result)}
+        res.status(200).send({message : '성공했습니다'});
+        //응답코드 200을 보내주세요
+        //그럼 실패시 뭘 실행해야 하는가
+        res.status(400).send({message : '실패했습니다'})
+        // 실패시 코드
+        // 4XX를 보내면 고객 잘못으로 요청 실패라는 뜻
+	})
+
+	// DELETE 요청시 ... 게시물번호(_id)에 따라 DB에서 삭제
+	
+})
+    
 // 서버에서 query string 꺼내는 법
 app.get('/search', (req, res) => {
 	console.log(req.query.value); // 쿼리 요청
