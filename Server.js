@@ -10,6 +10,19 @@ app.set('view engine', 'ejs');
 //static 파일을 보관하기 위해 public 폴더를 쓸거다
 app.use('/public', express.static('public'));
 
+// app.use(미들웨어) 미들웨어를 사용하고 싶을 때 쓰는 문법
+// routes 폴더에 있는 shop.js파일을 여기에 첨부하겠습니다
+// ./ -> 현재 경로를 뜻함
+// 고객이 / 경로로 요청했을 때 이런 미들웨어(방금 만든 라우터) 적용해주세요~
+// app.use('/', require('./routes/shop.js'));
+
+// shop으로 접속하면 shop.js 라우터를 이용하겠습니다
+// 조금 더 직관적임, 라우팅 수정이 필요하면 해당 파일을 수정해주면 된다
+// 장점 /shop으로 시작하는 라우트들이구나! (알아보기 쉬움)
+// /shop으로 시작하는 라우트들 관리도 편해진다
+app.use('/shop', require('./routes/shop.js'));
+app.use('/board/sub', require('./routes/board.js'));
+
 //변수 하나 필요함
 var db;
 MongoClient.connect('mongodb+srv://Meno:<password>@cluster0.pcniu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(error, client){
