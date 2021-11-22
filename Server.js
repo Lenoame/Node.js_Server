@@ -312,4 +312,35 @@ app.get('/search', (req, res) => {
 		res.render('search.ejs', {posts : result})
 		// ejs 파일에 데이터 보내기
 	})
-})
+});
+
+
+let multer = require('multer');
+// 하드에 저장
+// memoryStorage 휘발성 메모리에 저장
+var storage = multer.diskStorage({
+	destination : function(req, file, cb){
+		cb(null, './public/image')
+	},
+	filename : function(req, file, cb){
+		cb(null, file.originalname)
+	}
+});
+
+var upload = multer({storage : storage});
+
+app.get('/upload', function(req, res) {
+	res.render('upload.ejs')
+});
+
+// 파일을 image폴더에 저장해주세요
+app.post('/upload', upload.single('profile'), function(req, res){
+	res.send('업로드완료')
+});
+
+app.get('/image/:imageName', function(req, res){
+	res.sendFile( __dirname + '/public/image' + req.params.imageName)
+});
+    
+    
+    
